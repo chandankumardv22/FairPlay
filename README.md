@@ -1,4 +1,4 @@
-# FairPlay
+# SpinXI
 
 **No Arguments. Just Fair Decisions.**
 
@@ -29,6 +29,26 @@ npm run build
 npm run preview
 ```
 
-## Fairness
+## Deploy on Vercel
 
-All randomness uses the Web Crypto API with rejection sampling (no `Math.random()`, no modulo bias).
+This app is ready for Vercel (`vercel.json` handles Vite build + React Router).
+
+### Option A — GitHub (recommended)
+
+1. Push your latest code to GitHub (`chandankumardv22/FairPlay`).
+2. Open [vercel.com/new](https://vercel.com/new) and sign in.
+3. **Import** the repository.
+4. Keep defaults:
+   - Framework: Vite
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+5. Click **Deploy**.
+
+### Option B — Vercel CLI
+
+```bash
+npx vercel login
+npx vercel --prod
+```
+
+After deploy, open the `.vercel.app` URL Vercel gives you.

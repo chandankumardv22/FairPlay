@@ -28,7 +28,7 @@ const modes = [
 export function HomePage() {
   return (
     <PageTransition>
-      <section className="relative pb-10 pt-6 sm:pt-12">
+      <section className="relative pb-8 pt-4 sm:pb-10 sm:pt-12">
         <div className="mx-auto max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -43,16 +43,16 @@ export function HomePage() {
               Secure · Fair · Transparent
             </motion.p>
 
-            <h1 className="font-display text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl md:text-7xl">
-              FairPlay
+            <h1 className="font-display text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-6xl md:text-7xl">
+              SpinXI
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-300 sm:text-xl">
+            <p className="mx-auto mt-3 max-w-xl px-1 text-base text-slate-600 dark:text-slate-300 sm:mt-4 sm:text-xl">
               No Arguments. Just Fair Decisions.
             </p>
           </motion.div>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-4xl gap-5 sm:mt-16 sm:grid-cols-2 sm:gap-6">
+        <div className="mx-auto mt-8 grid max-w-4xl gap-4 sm:mt-16 sm:grid-cols-2 sm:gap-6">
           {modes.map((mode, index) => {
             const Icon = mode.icon
             return (
@@ -62,26 +62,29 @@ export function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + index * 0.1, duration: 0.5 }}
               >
-                <Link to={mode.to} className="block h-full focus-visible:outline-none">
+                <Link
+                  to={mode.to}
+                  className="block h-full touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:ring-offset-2"
+                >
                   <GlassCard
                     hoverLift
                     strong
-                    className="group relative h-full overflow-hidden p-6 sm:p-8"
+                    className="group relative h-full overflow-hidden p-5 sm:p-8"
                   >
                     <div
                       className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${mode.accent} opacity-70 transition group-hover:opacity-100`}
                     />
                     <div className="relative">
-                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-600/30">
+                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-600/30 sm:mb-5">
                         <Icon className="h-6 w-6" />
                       </div>
-                      <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                      <h2 className="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-2xl">
                         {mode.title}
                       </h2>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:mt-3">
                         {mode.description}
                       </p>
-                      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 transition group-hover:gap-3 dark:text-brand-300">
+                      <span className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-700 transition group-hover:gap-3 dark:text-brand-300 sm:mt-6">
                         Start
                         <FiArrowRight className="h-4 w-4" />
                       </span>
@@ -94,7 +97,7 @@ export function HomePage() {
         </div>
 
         <motion.div
-          className="mx-auto mt-12 max-w-lg"
+          className="mx-auto mt-8 max-w-lg sm:mt-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45 }}

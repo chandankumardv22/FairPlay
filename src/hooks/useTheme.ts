@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 type Theme = 'light' | 'dark'
 
-const STORAGE_KEY = 'fairplay-theme'
+const STORAGE_KEY = 'spinxi-theme'
 
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark'

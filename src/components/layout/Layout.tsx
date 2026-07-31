@@ -29,10 +29,10 @@ export function Layout() {
       <header className="safe-pt relative z-20 mx-auto flex w-full max-w-6xl items-center justify-between safe-px py-4 sm:px-8 sm:py-5">
         <Link to="/" className="group flex min-h-11 items-center gap-2.5">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-sm font-bold text-white shadow-lg shadow-brand-600/30">
-            FP
+            SX
           </span>
           <span className="font-display text-lg font-bold tracking-tight text-slate-900 transition group-hover:text-brand-700 dark:text-white dark:group-hover:text-brand-300">
-            FairPlay
+            SpinXI
           </span>
         </Link>
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
@@ -43,7 +43,7 @@ export function Layout() {
       </main>
 
       <footer className="safe-pb relative z-10 mx-auto w-full max-w-6xl safe-px pt-2 text-center text-xs text-slate-500 sm:px-8">
-        FairPlay · Cryptographically secure decisions · No accounts required
+        SpinXI · Cryptographically secure decisions · No accounts required
       </footer>
     </div>
   )

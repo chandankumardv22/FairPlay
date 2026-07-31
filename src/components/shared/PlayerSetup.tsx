@@ -81,31 +81,34 @@ export function PlayerSetup({
   }
 
   return (
-    <GlassCard strong className="mx-auto max-w-2xl p-6 sm:p-8">
-      <div className="mb-6 space-y-2">
+    <GlassCard strong className="mx-auto w-full max-w-2xl p-5 sm:p-8">
+      <div className="mb-5 space-y-2 sm:mb-6">
         <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
           {title}
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">{subtitle}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
         <Input
           label="How many players?"
           type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
           min={minPlayers}
           max={maxPlayers}
           value={countInput}
           onChange={(e) => setCountInput(e.target.value)}
           hint={`Minimum ${minPlayers}, maximum ${maxPlayers}`}
+          enterKeyHint="next"
         />
 
         <div className="space-y-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <p className="text-sm font-medium text-slate-700 dark:text-slate-200">Player names</p>
-            <p className="text-xs text-slate-500">{names.length} fields</p>
+            <p className="shrink-0 text-xs text-slate-500">{names.length} fields</p>
           </div>
-          <div className="max-h-[min(50vh,28rem)] space-y-2.5 overflow-y-auto pr-1">
+          <div className="touch-scroll max-h-[min(45dvh,24rem)] space-y-2.5 overflow-y-auto overscroll-contain pr-1">
             {names.map((name, index) => (
               <motion.div
                 key={`name-field-${index}`}
@@ -119,6 +122,8 @@ export function PlayerSetup({
                   onChange={(e) => handleNameChange(index, e.target.value)}
                   placeholder={`Enter player ${index + 1} name`}
                   autoComplete="off"
+                  autoCapitalize="words"
+                  enterKeyHint={index === names.length - 1 ? 'done' : 'next'}
                 />
               </motion.div>
             ))}

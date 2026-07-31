@@ -63,10 +63,10 @@ export function IndividualModePage() {
 
   return (
     <PageTransition>
-      <div className="mb-6 flex items-center gap-3">
+      <div className="mb-6 flex flex-wrap items-center gap-2 sm:mb-6 sm:gap-3">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300"
+          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-slate-600 transition hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300"
         >
           <HiArrowLeft className="h-4 w-4" />
           Home
@@ -89,13 +89,13 @@ export function IndividualModePage() {
       ) : null}
 
       {step === 'spinning' && currentPlayer ? (
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <GlassCard strong className="relative overflow-hidden p-6 sm:p-8">
-            <div className="mb-8 text-center">
+        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
+          <GlassCard strong className="relative overflow-hidden p-5 sm:p-8">
+            <div className="mb-6 text-center sm:mb-8">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-700 dark:text-brand-300">
                 Now Spinning
               </p>
-              <h1 className="mt-2 font-display text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+              <h1 className="mt-2 break-words font-display text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
                 {currentPlayer.name}
               </h1>
               <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
@@ -110,25 +110,27 @@ export function IndividualModePage() {
             />
           </GlassCard>
 
-          <div className="space-y-4">
-            <TrustBadge />
-            <GlassCard className="p-5">
+          <div className="order-first space-y-4 lg:order-none">
+            <div className="hidden lg:block">
+              <TrustBadge />
+            </div>
+            <GlassCard className="p-4 sm:p-5">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Assigned so far
               </p>
               {assignments.length === 0 ? (
                 <p className="text-sm text-slate-500">No assignments yet.</p>
               ) : (
-                <ul className="max-h-64 space-y-2 overflow-y-auto">
+                <ul className="touch-scroll max-h-40 space-y-2 overflow-y-auto sm:max-h-64">
                   {assignments.map((a) => (
                     <li
                       key={a.player.id}
-                      className="flex items-center justify-between rounded-xl bg-white/50 px-3 py-2 text-sm dark:bg-white/5"
+                      className="flex items-center justify-between gap-3 rounded-xl bg-white/50 px-3 py-2.5 text-sm dark:bg-white/5"
                     >
-                      <span className="font-medium text-slate-800 dark:text-slate-100">
+                      <span className="min-w-0 truncate font-medium text-slate-800 dark:text-slate-100">
                         {a.player.name}
                       </span>
-                      <span className="font-display font-bold text-brand-700 dark:text-brand-300">
+                      <span className="shrink-0 font-display font-bold text-brand-700 dark:text-brand-300">
                         {a.number}
                       </span>
                     </li>
@@ -141,12 +143,12 @@ export function IndividualModePage() {
       ) : null}
 
       {step === 'results' ? (
-        <GlassCard strong className="mx-auto max-w-2xl p-6 sm:p-8">
-          <div className="mb-8 text-center">
+        <GlassCard strong className="mx-auto w-full max-w-2xl p-5 sm:p-8">
+          <div className="mb-6 text-center sm:mb-8">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-300">
               Complete
             </p>
-            <h1 className="mt-2 font-display text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
+            <h1 className="mt-2 font-display text-2xl font-bold text-slate-900 dark:text-white sm:text-4xl">
               Final Assigned Order
             </h1>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
@@ -158,13 +160,15 @@ export function IndividualModePage() {
             {sortedResults.map((item) => (
               <li
                 key={item.player.id}
-                className="flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-white/5"
+                className="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/60 px-3 py-3 sm:gap-4 sm:px-4 dark:border-white/10 dark:bg-white/5"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 font-display text-lg font-bold text-white">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 font-display text-lg font-bold text-white">
                   {item.number}
                 </span>
-                <span className="text-slate-400">→</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{item.player.name}</span>
+                <span className="hidden text-slate-400 sm:inline">→</span>
+                <span className="min-w-0 truncate font-semibold text-slate-900 dark:text-white">
+                  {item.player.name}
+                </span>
               </li>
             ))}
           </ol>

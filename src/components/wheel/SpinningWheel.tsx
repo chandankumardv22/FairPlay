@@ -101,20 +101,20 @@ export function SpinningWheel({
   const isBusy = spinning || disabled
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <div className="relative">
+    <div className="flex w-full flex-col items-center gap-5 sm:gap-6">
+      <div className="relative w-full max-w-[min(100%,320px)]">
         <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1">
           <div className="h-0 w-0 border-l-[10px] border-r-[10px] border-t-[18px] border-l-transparent border-r-transparent border-t-amber-400 drop-shadow-md" />
         </div>
 
-        <div className="rounded-full bg-gradient-to-br from-white/60 to-white/10 p-2 shadow-2xl shadow-slate-900/20 ring-1 ring-white/40 dark:from-white/10 dark:to-white/5 dark:ring-white/10">
+        <div className="rounded-full bg-gradient-to-br from-white/60 to-white/10 p-1.5 shadow-2xl shadow-slate-900/20 ring-1 ring-white/40 sm:p-2 dark:from-white/10 dark:to-white/5 dark:ring-white/10">
           <motion.div
             animate={{ rotate: rotation }}
             transition={{
               duration: spinning ? SPIN_MS / 1000 : 0,
               ease: [0.12, 0.75, 0.15, 1],
             }}
-            className="relative h-[min(72vw,320px)] w-[min(72vw,320px)]"
+            className="relative aspect-square w-full"
           >
             <svg viewBox="0 0 320 320" className="h-full w-full">
               <circle cx="160" cy="160" r="152" fill="#0f172a" opacity="0.08" />
@@ -157,7 +157,7 @@ export function SpinningWheel({
                 fontSize="11"
                 fontWeight="700"
               >
-                FP
+                SX
               </text>
             </svg>
           </motion.div>
@@ -167,10 +167,11 @@ export function SpinningWheel({
       <Button
         type="button"
         size="lg"
+        fullWidth
         onClick={handleSpin}
         disabled={isBusy || remainingNumbers.length === 0}
         isLoading={spinning}
-        className="min-w-[10rem] uppercase tracking-[0.2em]"
+        className="max-w-[min(100%,320px)] uppercase tracking-[0.2em]"
       >
         {spinning ? 'Spinning…' : 'Spin'}
       </Button>

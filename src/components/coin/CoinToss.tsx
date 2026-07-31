@@ -83,26 +83,26 @@ export function CoinToss({
   }
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <div className="text-center">
+    <div className="flex w-full flex-col items-center gap-5 sm:gap-6">
+      <div className="w-full text-center">
         <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
           {title}
         </h2>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{subtitle}</p>
       </div>
 
-      <div className="flex w-full max-w-md justify-between gap-4 text-center text-sm">
-        <div className="glass flex-1 rounded-2xl px-3 py-3">
+      <div className="flex w-full max-w-md gap-2 text-center text-sm sm:gap-4">
+        <div className="glass min-w-0 flex-1 rounded-2xl px-2.5 py-3 sm:px-3">
           <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Heads</p>
-          <p className="mt-1 font-semibold text-slate-800 dark:text-slate-100">{headsLabel}</p>
+          <p className="mt-1 truncate font-semibold text-slate-800 dark:text-slate-100">{headsLabel}</p>
         </div>
-        <div className="glass flex-1 rounded-2xl px-3 py-3">
+        <div className="glass min-w-0 flex-1 rounded-2xl px-2.5 py-3 sm:px-3">
           <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Tails</p>
-          <p className="mt-1 font-semibold text-slate-800 dark:text-slate-100">{tailsLabel}</p>
+          <p className="mt-1 truncate font-semibold text-slate-800 dark:text-slate-100">{tailsLabel}</p>
         </div>
       </div>
 
-      <div className="py-6" style={{ perspective: 1000 }}>
+      <div className="py-4 sm:py-6" style={{ perspective: 1000 }}>
         <motion.div
           animate={{ rotateX, y: liftY }}
           transition={{
@@ -110,7 +110,7 @@ export function CoinToss({
             y: { duration: 0.35, ease: 'easeInOut' },
           }}
           style={{ transformStyle: 'preserve-3d' }}
-          className="relative h-36 w-36"
+          className="relative h-28 w-28 sm:h-36 sm:w-36"
         >
           <div
             className="absolute inset-0 flex items-center justify-center rounded-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-600 shadow-xl shadow-amber-900/30 ring-4 ring-amber-200/50"
@@ -142,19 +142,22 @@ export function CoinToss({
       </div>
 
       {result ? (
-        <p className="rounded-full bg-brand-500/15 px-4 py-1.5 text-sm font-semibold text-brand-800 dark:text-brand-200">
-          Result: {result === 'heads' ? 'Heads' : 'Tails'} —{' '}
-          {result === 'heads' ? headsLabel : tailsLabel}
+        <p className="max-w-full px-2 text-center text-sm font-semibold leading-snug text-brand-800 dark:text-brand-200">
+          <span className="inline-block rounded-full bg-brand-500/15 px-4 py-2">
+            Result: {result === 'heads' ? 'Heads' : 'Tails'} —{' '}
+            {result === 'heads' ? headsLabel : tailsLabel}
+          </span>
         </p>
       ) : null}
 
       <Button
         type="button"
         size="lg"
+        fullWidth
         onClick={handleFlip}
         disabled={flipping || disabled || result !== null}
         isLoading={flipping}
-        className="min-w-[12rem]"
+        className="max-w-md"
       >
         {flipping ? 'Flipping…' : buttonLabel}
       </Button>

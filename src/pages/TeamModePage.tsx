@@ -84,23 +84,23 @@ export function TeamModePage() {
 
   return (
     <PageTransition>
-      <div className="mb-6 flex items-center gap-3">
+      <div className="mb-5 flex flex-wrap items-center gap-2 sm:mb-6 sm:gap-3">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition hover:text-pitch-700 dark:text-slate-400 dark:hover:text-pitch-300"
+          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-slate-600 transition hover:text-pitch-700 dark:text-slate-400 dark:hover:text-pitch-300"
         >
           <HiArrowLeft className="h-4 w-4" />
           Home
         </Link>
         <span className="text-slate-300 dark:text-slate-600">/</span>
         <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-          Team Mode · Cricket Toss
+          Team Mode
         </span>
       </div>
 
       {step === 'toss-select' ? (
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="cricket-scene relative overflow-hidden p-6 sm:p-8">
+        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
+          <div className="cricket-scene relative overflow-hidden p-5 sm:p-8">
             <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-pitch-500/10 blur-2xl" />
             <div className="pointer-events-none absolute -bottom-10 left-10 h-32 w-32 rounded-full bg-ball-500/10 blur-2xl" />
             <CoinToss
@@ -113,7 +113,7 @@ export function TeamModePage() {
               onComplete={handleSelectToss}
             />
           </div>
-          <div className="space-y-4">
+          <div className="hidden space-y-4 lg:block">
             <TrustBadge />
             <GlassCard className="border-pitch-600/15 p-5 dark:border-pitch-400/15">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-pitch-800 dark:text-pitch-300">
@@ -128,8 +128,8 @@ export function TeamModePage() {
       ) : null}
 
       {showSecondToss ? (
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="cricket-scene relative overflow-hidden p-6 sm:p-8">
+        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
+          <div className="cricket-scene relative overflow-hidden p-5 sm:p-8">
             <CoinToss
               key={`batbowl-toss-${sessionKey}`}
               title="Bat or Bowl?"
@@ -141,9 +141,8 @@ export function TeamModePage() {
             />
           </div>
           <div className="space-y-4">
-            <TrustBadge />
             {firstPickCaptain ? (
-              <GlassCard className="border-pitch-600/15 p-5 dark:border-pitch-400/15">
+              <GlassCard className="border-pitch-600/15 p-4 sm:p-5 dark:border-pitch-400/15">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-pitch-800 dark:text-pitch-300">
                   First pick
                 </p>
@@ -155,30 +154,33 @@ export function TeamModePage() {
                 </p>
               </GlassCard>
             ) : null}
+            <div className="hidden lg:block">
+              <TrustBadge />
+            </div>
           </div>
         </div>
       ) : null}
 
       {showElection && batBowlWinner ? (
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="cricket-scene relative overflow-hidden p-6 sm:p-8">
-            <div className="flex flex-col items-center gap-6 py-4 text-center">
+        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
+          <div className="cricket-scene relative overflow-hidden p-5 sm:p-8">
+            <div className="flex flex-col items-center gap-5 py-2 text-center sm:gap-6 sm:py-4">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-pitch-800 dark:text-pitch-300">
                   Election
                 </p>
-                <h2 className="mt-2 font-display text-3xl font-bold text-slate-900 dark:text-white">
+                <h2 className="mt-2 font-display text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
                   {batBowlWinner} elects
                 </h2>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                   Choose your innings. The other captain takes the rest.
                 </p>
               </div>
-              <div className="grid w-full max-w-md gap-3 sm:grid-cols-2">
+              <div className="grid w-full max-w-md grid-cols-1 gap-3 sm:grid-cols-2">
                 <button
                   type="button"
                   onClick={() => chooseBatOrBowl('bat')}
-                  className="choice-bat group flex flex-col items-center gap-2 rounded-3xl px-4 py-6 transition hover:-translate-y-1 hover:shadow-lg"
+                  className="choice-bat flex min-h-[7.5rem] touch-manipulation flex-col items-center justify-center gap-2 rounded-3xl px-4 py-5 active:scale-[0.98]"
                 >
                   <BatIcon />
                   <span className="font-display text-lg font-bold text-amber-950 dark:text-amber-100">
@@ -191,7 +193,7 @@ export function TeamModePage() {
                 <button
                   type="button"
                   onClick={() => chooseBatOrBowl('bowl')}
-                  className="choice-bowl group flex flex-col items-center gap-2 rounded-3xl px-4 py-6 transition hover:-translate-y-1 hover:shadow-lg"
+                  className="choice-bowl flex min-h-[7.5rem] touch-manipulation flex-col items-center justify-center gap-2 rounded-3xl px-4 py-5 active:scale-[0.98]"
                 >
                   <BallIcon />
                   <span className="font-display text-lg font-bold text-red-950 dark:text-red-100">
@@ -205,9 +207,8 @@ export function TeamModePage() {
             </div>
           </div>
           <div className="space-y-4">
-            <TrustBadge />
             {firstPickCaptain ? (
-              <GlassCard className="border-pitch-600/15 p-5 dark:border-pitch-400/15">
+              <GlassCard className="border-pitch-600/15 p-4 sm:p-5 dark:border-pitch-400/15">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-pitch-800 dark:text-pitch-300">
                   First pick
                 </p>
@@ -224,8 +225,8 @@ export function TeamModePage() {
       ) : null}
 
       {step === 'results' && firstPickCaptain && batBowlWinner && batBowlChoice ? (
-        <div className="cricket-scene mx-auto max-w-2xl p-6 sm:p-8">
-          <div className="mb-8 text-center">
+        <div className="cricket-scene mx-auto max-w-2xl p-5 sm:p-8">
+          <div className="mb-6 text-center sm:mb-8">
             <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-pitch-800 dark:text-pitch-300">
               Toss Complete
             </p>
