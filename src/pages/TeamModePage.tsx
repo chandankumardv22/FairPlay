@@ -5,7 +5,6 @@ import { CoinToss } from '../components/coin/CoinToss'
 import { Button } from '../components/ui/Button'
 import { GlassCard } from '../components/ui/GlassCard'
 import { PageTransition } from '../components/ui/PageTransition'
-import { TrustBadge } from '../components/ui/TrustBadge'
 import type { BatBowlChoice, TeamStep } from '../types'
 
 const CAPTAIN_A = 'Captain A'
@@ -114,7 +113,6 @@ export function TeamModePage() {
             />
           </div>
           <div className="hidden space-y-4 lg:block">
-            <TrustBadge />
             <GlassCard className="border-pitch-600/15 p-5 dark:border-pitch-400/15">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-pitch-800 dark:text-pitch-300">
                 At the crease
@@ -154,9 +152,6 @@ export function TeamModePage() {
                 </p>
               </GlassCard>
             ) : null}
-            <div className="hidden lg:block">
-              <TrustBadge />
-            </div>
           </div>
         </div>
       ) : null}
@@ -260,10 +255,6 @@ export function TeamModePage() {
                 )
               }
             />
-          </div>
-
-          <div className="mt-8">
-            <TrustBadge compact />
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

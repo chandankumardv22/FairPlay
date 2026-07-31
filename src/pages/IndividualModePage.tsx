@@ -6,7 +6,6 @@ import { SpinningWheel } from '../components/wheel/SpinningWheel'
 import { Button } from '../components/ui/Button'
 import { GlassCard } from '../components/ui/GlassCard'
 import { PageTransition } from '../components/ui/PageTransition'
-import { TrustBadge } from '../components/ui/TrustBadge'
 import type { Assignment, IndividualStep, Player } from '../types'
 
 export function IndividualModePage() {
@@ -111,9 +110,6 @@ export function IndividualModePage() {
           </GlassCard>
 
           <div className="order-first space-y-4 lg:order-none">
-            <div className="hidden lg:block">
-              <TrustBadge />
-            </div>
             <GlassCard className="p-4 sm:p-5">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Assigned so far

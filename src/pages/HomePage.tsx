@@ -4,7 +4,6 @@ import { HiOutlineUserGroup, HiOutlineUsers } from 'react-icons/hi2'
 import { FiArrowRight } from 'react-icons/fi'
 import { GlassCard } from '../components/ui/GlassCard'
 import { PageTransition } from '../components/ui/PageTransition'
-import { TrustBadge } from '../components/ui/TrustBadge'
 
 const modes = [
   {
@@ -95,15 +94,6 @@ export function HomePage() {
             )
           })}
         </div>
-
-        <motion.div
-          className="mx-auto mt-8 max-w-lg sm:mt-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.45 }}
-        >
-          <TrustBadge compact />
-        </motion.div>
       </section>
     </PageTransition>
   )
