@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+
+  --color-pitch-50: #f0fdf4;
+  --color-pitch-100: #dcfce7;
+  --color-pitch-200: #bbf7d0;
+  --color-pitch-300: #86efac;
+  --color-pitch-400: #4ade80;
+  --color-pitch-500: #22c55e;
+  --color-pitch-600: #16a34a;
+  --color-pitch-700: #15803d;
+  --color-pitch-800: #166534;
+  --color-pitch-900: #14532d;
+
+  --color-ball-300: #fca5a5;
+  --color-ball-500: #dc2626;
+  --color-ball-700: #b91c1c;
+
+  --color-surface-50: #f8fafc;
+  --color-surface-100: #f1f5f9;
+  --color-surface-200: #e2e8f0;
+  --color-surface-800: #1e293b;
+  --color-surface-900: #0f172a;
+  --color-surface-950: #020617;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply m-0 min-h-dvh font-sans antialiased;
+    @apply bg-surface-50 text-slate-900;
+    @apply dark:bg-surface-950 dark:text-slate-100;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  #root {
+    @apply min-h-dvh;
+  }
+
+  /* Prevent iOS Safari zoom on focus (requires >= 16px) */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  button,
+  a,
+  [role='button'] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    @apply bg-brand-500/30 text-inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glass {
+    @apply border border-white/40 bg-white/60 shadow-xl shadow-slate-900/5 backdrop-blur-xl;
+    @apply dark:border-white/10 dark:bg-white/5 dark:shadow-black/40;
+  }
+
+  .glass-strong {
+    @apply border border-white/50 bg-white/80 shadow-2xl shadow-slate-900/10 backdrop-blur-2xl;
+    @apply dark:border-white/10 dark:bg-slate-900/70 dark:shadow-black/50;
+  }
+
+  .gradient-mesh {
+    background-color: var(--mesh-base);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 10% 20%, var(--mesh-a), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 90% 10%, var(--mesh-b), transparent 50%),
+      radial-gradient(ellipse 60% 50% at 50% 90%, var(--mesh-c), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 70% 50%, var(--mesh-d), transparent 45%);
+  }
+
+  .light-mesh {
+    --mesh-base: #f8fafc;
+    --mesh-a: rgb(20 184 166 / 0.18);
+    --mesh-b: rgb(56 189 248 / 0.14);
+    --mesh-c: rgb(99 102 241 / 0.08);
+    --mesh-d: rgb(45 212 191 / 0.1);
+  }
+
+  .dark-mesh {
+    --mesh-base: #020617;
+    --mesh-a: rgb(15 118 110 / 0.35);
+    --mesh-b: rgb(14 165 233 / 0.18);
+    --mesh-c: rgb(30 58 138 / 0.25);
+    --mesh-d: rgb(20 184 166 / 0.12);
+  }
+
+  /* —— Cricket toss —— */
+  .cricket-scene {
+    @apply relative overflow-hidden rounded-3xl;
+    background:
+      linear-gradient(180deg, rgb(21 128 61 / 0.12), transparent 42%),
+      linear-gradient(160deg, rgb(255 255 255 / 0.65), rgb(240 253 244 / 0.5));
+  }
+
+  .dark .cricket-scene {
+    background:
+      linear-gradient(180deg, rgb(21 128 61 / 0.28), transparent 50%),
+      linear-gradient(160deg, rgb(15 23 42 / 0.85), rgb(6 78 59 / 0.25));
+  }
+
+  .cricket-captain-chip {
+    @apply rounded-2xl border border-pitch-600/20 bg-white/70 px-3 py-3 shadow-sm backdrop-blur;
+    @apply dark:border-pitch-400/20 dark:bg-white/5;
+  }
+
+  .coin-stage {
+    @apply overflow-hidden rounded-3xl border border-pitch-700/15 px-4;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgb(21 128 61 / 0.2), transparent 70%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.35), rgb(220 252 231 / 0.45));
+  }
+
+  .dark .coin-stage {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgb(21 128 61 / 0.35), transparent 70%),
+      linear-gradient(180deg, rgb(15 23 42 / 0.4), rgb(6 78 59 / 0.25));
+    border-color: rgb(74 222 128 / 0.12);
+  }
+
+  .pitch-strip {
+    @apply pointer-events-none absolute inset-x-10 bottom-0 top-1/3 rounded-t-lg opacity-50;
+    background: repeating-linear-gradient(
+      90deg,
+      rgb(22 101 52 / 0.08) 0 10px,
+      rgb(34 197 94 / 0.05) 10px 20px
+    );
+  }
+
+  .stump {
+    @apply inline-block h-7 w-1 rounded-full bg-amber-100 shadow-sm;
+    box-shadow: inset 0 0 0 1px rgb(180 83 9 / 0.35);
+  }
+
+  .coin-face {
+    @apply absolute inset-0 flex items-center justify-center overflow-hidden rounded-full;
+    box-shadow:
+      inset 0 2px 8px rgb(255 255 255 / 0.45),
+      inset 0 -4px 10px rgb(0 0 0 / 0.25),
+      0 8px 20px rgb(0 0 0 / 0.2);
+  }
+
+  .coin-face-heads {
+    background:
+      radial-gradient(circle at 32% 28%, #fde68a, transparent 42%),
+      radial-gradient(circle at 70% 75%, #b45309, transparent 50%),
+      linear-gradient(145deg, #fbbf24, #d97706 45%, #92400e);
+  }
+
+  .coin-face-tails {
+    background:
+      radial-gradient(circle at 32% 28%, #fcd34d, transparent 42%),
+      radial-gradient(circle at 70% 75%, #92400e, transparent 50%),
+      linear-gradient(145deg, #f59e0b, #b45309 45%, #78350f);
+  }
+
+  .coin-rim {
+    @apply pointer-events-none absolute inset-[5px] rounded-full border-2 border-amber-100/50;
+    box-shadow: inset 0 0 0 3px rgb(146 64 14 / 0.25);
+  }
+
+  .coin-inner {
+    @apply relative z-10 flex flex-col items-center justify-center gap-0.5 text-amber-950;
+  }
+
+  .coin-label {
+    @apply font-display text-[10px] font-extrabold tracking-[0.28em];
+    text-shadow: 0 1px 0 rgb(255 255 255 / 0.35);
+  }
+
+  .coin-edge {
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #78350f, #fbbf24, #78350f);
+    transform: translateZ(-4px);
+    opacity: 0.85;
+  }
+
+  .choice-bat {
+    @apply border border-amber-700/20 bg-gradient-to-br from-amber-100/80 to-amber-50/40;
+    @apply dark:from-amber-900/30 dark:to-amber-950/20 dark:border-amber-500/20;
+  }
+
+  .choice-bowl {
+    @apply border border-ball-700/25 bg-gradient-to-br from-red-100/70 to-rose-50/40;
+    @apply dark:from-red-950/40 dark:to-rose-950/20 dark:border-ball-500/25;
+  }
+
+  .safe-px {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+
+  .safe-pb {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-pt {
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
+
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
