@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { HiArrowLeft } from 'react-icons/hi2'
 import { PlayerSetup } from '../components/shared/PlayerSetup'
@@ -15,8 +15,10 @@ export function IndividualModePage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [remaining, setRemaining] = useState<number[]>([])
   const [assignments, setAssignments] = useState<Assignment[]>([])
+  const autoAssignedRef = useRef(false)
 
   const currentPlayer = players[currentIndex]
+  const isLastPlayer = remaining.length === 1 && currentIndex === players.length - 1
 
   const sortedResults = useMemo(
     () => [...assignments].sort((a, b) => a.number - b.number),
@@ -25,12 +27,19 @@ export function IndividualModePage() {
 
   const startSession = (nextPlayers: Player[]) => {
     const numbers = Array.from({ length: nextPlayers.length }, (_, i) => i + 1)
+    autoAssignedRef.current = false
     setPlayers(nextPlayers)
     setRemaining(numbers)
     setAssignments([])
     setCurrentIndex(0)
     setStep('spinning')
   }
+
+  const finishWithAssignments = useCallback((finalAssignments: Assignment[]) => {
+    setAssignments(finalAssignments)
+    setRemaining([])
+    setStep('results')
+  }, [])
 
   const handleSpinComplete = useCallback(
     (selected: number) => {
@@ -39,6 +48,17 @@ export function IndividualModePage() {
 
       const nextAssignments = [...assignments, { player, number: selected }]
       const nextRemaining = remaining.filter((n) => n !== selected)
+
+      // Last number goes to the last player — no spin
+      if (nextRemaining.length === 1) {
+        const lastPlayer = players[currentIndex + 1]
+        const lastNumber = nextRemaining[0]!
+        if (lastPlayer) {
+          autoAssignedRef.current = true
+          finishWithAssignments([...nextAssignments, { player: lastPlayer, number: lastNumber }])
+          return
+        }
+      }
 
       setAssignments(nextAssignments)
       setRemaining(nextRemaining)
@@ -49,10 +69,22 @@ export function IndividualModePage() {
       }
       setCurrentIndex((i) => i + 1)
     },
-    [players, currentIndex, assignments, remaining],
+    [players, currentIndex, assignments, remaining, finishWithAssignments],
   )
 
+  // Safety: if we ever land on the last player with one number, auto-assign
+  useEffect(() => {
+    if (step !== 'spinning' || !isLastPlayer || autoAssignedRef.current) return
+    const player = players[currentIndex]
+    const lastNumber = remaining[0]
+    if (!player || lastNumber === undefined) return
+
+    autoAssignedRef.current = true
+    finishWithAssignments([...assignments, { player, number: lastNumber }])
+  }, [step, isLastPlayer, players, currentIndex, remaining, assignments, finishWithAssignments])
+
   const resetAll = () => {
+    autoAssignedRef.current = false
     setStep('setup')
     setPlayers([])
     setRemaining([])
@@ -79,7 +111,7 @@ export function IndividualModePage() {
       {step === 'setup' ? (
         <PlayerSetup
           title="Individual Mode"
-          subtitle="Enter every player. Each will spin for a unique number from 1 to N — assigned with equal probability."
+          subtitle="Enter every player. Each spins for a unique number — the last player is assigned the remaining number automatically."
           minPlayers={2}
           maxPlayers={50}
           submitLabel="Start Spinning"
@@ -87,11 +119,10 @@ export function IndividualModePage() {
         />
       ) : null}
 
-      {step === 'spinning' && currentPlayer ? (
+      {step === 'spinning' && currentPlayer && !isLastPlayer ? (
         <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
           <div className="wheel-chamber relative p-5 sm:p-8">
             <div className="wheel-hud-ring hidden sm:block" aria-hidden />
-            {/* Floating particles */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
               {Array.from({ length: 12 }).map((_, i) => (
                 <span
@@ -164,7 +195,7 @@ export function IndividualModePage() {
               Final Assigned Order
             </h1>
             <p className="mt-2 font-grotesk text-sm text-slate-400">
-              Every number used exactly once. Equal odds throughout.
+              Every number used exactly once. Last player auto-assigned.
             </p>
           </div>
 
