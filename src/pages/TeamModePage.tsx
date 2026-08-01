@@ -86,22 +86,33 @@ export function TeamModePage() {
       <div className="mb-5 flex flex-wrap items-center gap-2 sm:mb-6 sm:gap-3">
         <Link
           to="/"
-          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-slate-600 transition hover:text-pitch-700 dark:text-slate-400 dark:hover:text-pitch-300"
+          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-slate-400 transition hover:text-sky-300"
         >
           <HiArrowLeft className="h-4 w-4" />
           Home
         </Link>
-        <span className="text-slate-300 dark:text-slate-600">/</span>
-        <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+        <span className="text-slate-600">/</span>
+        <span className="font-orbitron text-[10px] font-semibold uppercase tracking-wider text-sky-300">
           Team Mode
         </span>
       </div>
 
       {step === 'toss-select' ? (
-        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
-          <div className="cricket-scene relative overflow-hidden p-5 sm:p-8">
-            <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-pitch-500/10 blur-2xl" />
-            <div className="pointer-events-none absolute -bottom-10 left-10 h-32 w-32 rounded-full bg-ball-500/10 blur-2xl" />
+        <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
+          <div className="toss-chamber relative p-5 sm:p-8">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+              {Array.from({ length: 10 }).map((_, i) => (
+                <span
+                  key={i}
+                  className="absolute h-1 w-1 rounded-full bg-sky-400/40"
+                  style={{
+                    left: `${10 + ((i * 19) % 80)}%`,
+                    top: `${15 + ((i * 27) % 65)}%`,
+                    animation: `wheel-particle-float ${3 + (i % 3) * 0.5}s ease-in-out ${i * 0.25}s infinite`,
+                  }}
+                />
+              ))}
+            </div>
             <CoinToss
               key={`select-toss-${sessionKey}`}
               title="Who selects first?"
@@ -113,12 +124,12 @@ export function TeamModePage() {
             />
           </div>
           <div className="hidden space-y-4 lg:block">
-            <GlassCard className="border-pitch-600/15 p-5 dark:border-pitch-400/15">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-pitch-800 dark:text-pitch-300">
-                At the crease
+            <GlassCard className="border-sky-500/15 bg-slate-950/40 p-5">
+              <p className="font-orbitron text-[10px] font-bold uppercase tracking-[0.22em] text-sky-400">
+                Match protocol
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                Captains meet mid-pitch. Call heads or tails — the coin decides who picks first.
+              <p className="mt-2 font-grotesk text-sm leading-relaxed text-slate-300">
+                Captains call heads or tails. A cryptographically secure flip decides who picks first.
               </p>
             </GlassCard>
           </div>
@@ -126,8 +137,8 @@ export function TeamModePage() {
       ) : null}
 
       {showSecondToss ? (
-        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
-          <div className="cricket-scene relative overflow-hidden p-5 sm:p-8">
+        <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
+          <div className="toss-chamber relative p-5 sm:p-8">
             <CoinToss
               key={`batbowl-toss-${sessionKey}`}
               title="Bat or Bowl?"
@@ -140,16 +151,14 @@ export function TeamModePage() {
           </div>
           <div className="space-y-4">
             {firstPickCaptain ? (
-              <GlassCard className="border-pitch-600/15 p-4 sm:p-5 dark:border-pitch-400/15">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-pitch-800 dark:text-pitch-300">
+              <GlassCard className="border-sky-500/15 bg-slate-950/40 p-4 sm:p-5">
+                <p className="font-orbitron text-[10px] font-bold uppercase tracking-[0.22em] text-sky-400">
                   First pick
                 </p>
-                <p className="mt-2 font-display text-xl font-bold text-slate-900 dark:text-white">
+                <p className="mt-2 font-orbitron text-xl font-bold text-slate-100">
                   {firstPickCaptain}
                 </p>
-                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                  selects a player first
-                </p>
+                <p className="mt-1 font-grotesk text-sm text-slate-400">selects a player first</p>
               </GlassCard>
             ) : null}
           </div>
@@ -158,16 +167,16 @@ export function TeamModePage() {
 
       {showElection && batBowlWinner ? (
         <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:gap-6">
-          <div className="cricket-scene relative overflow-hidden p-5 sm:p-8">
+          <div className="toss-chamber relative overflow-hidden p-5 sm:p-8">
             <div className="flex flex-col items-center gap-5 py-2 text-center sm:gap-6 sm:py-4">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-pitch-800 dark:text-pitch-300">
+                <p className="font-orbitron text-[10px] font-bold uppercase tracking-[0.22em] text-sky-400">
                   Election
                 </p>
-                <h2 className="mt-2 font-display text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
+                <h2 className="mt-2 font-orbitron text-2xl font-bold text-white sm:text-3xl">
                   {batBowlWinner} elects
                 </h2>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                <p className="mt-2 font-grotesk text-sm text-slate-400">
                   Choose your innings. The other captain takes the rest.
                 </p>
               </div>
@@ -178,12 +187,8 @@ export function TeamModePage() {
                   className="choice-bat flex min-h-[7.5rem] touch-manipulation flex-col items-center justify-center gap-2 rounded-3xl px-4 py-5 active:scale-[0.98]"
                 >
                   <BatIcon />
-                  <span className="font-display text-lg font-bold text-amber-950 dark:text-amber-100">
-                    Bat
-                  </span>
-                  <span className="text-xs text-amber-900/70 dark:text-amber-200/60">
-                    Take first innings
-                  </span>
+                  <span className="font-orbitron text-lg font-bold text-amber-100">Bat</span>
+                  <span className="font-grotesk text-xs text-amber-200/60">Take first innings</span>
                 </button>
                 <button
                   type="button"
@@ -191,28 +196,22 @@ export function TeamModePage() {
                   className="choice-bowl flex min-h-[7.5rem] touch-manipulation flex-col items-center justify-center gap-2 rounded-3xl px-4 py-5 active:scale-[0.98]"
                 >
                   <BallIcon />
-                  <span className="font-display text-lg font-bold text-red-950 dark:text-red-100">
-                    Bowl
-                  </span>
-                  <span className="text-xs text-red-900/70 dark:text-red-200/60">
-                    Open the attack
-                  </span>
+                  <span className="font-orbitron text-lg font-bold text-red-100">Bowl</span>
+                  <span className="font-grotesk text-xs text-red-200/60">Open the attack</span>
                 </button>
               </div>
             </div>
           </div>
           <div className="space-y-4">
             {firstPickCaptain ? (
-              <GlassCard className="border-pitch-600/15 p-4 sm:p-5 dark:border-pitch-400/15">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-pitch-800 dark:text-pitch-300">
+              <GlassCard className="border-sky-500/15 bg-slate-950/40 p-4 sm:p-5">
+                <p className="font-orbitron text-[10px] font-bold uppercase tracking-[0.22em] text-sky-400">
                   First pick
                 </p>
-                <p className="mt-2 font-display text-xl font-bold text-slate-900 dark:text-white">
+                <p className="mt-2 font-orbitron text-xl font-bold text-slate-100">
                   {firstPickCaptain}
                 </p>
-                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                  selects a player first
-                </p>
+                <p className="mt-1 font-grotesk text-sm text-slate-400">selects a player first</p>
               </GlassCard>
             ) : null}
           </div>
@@ -220,15 +219,13 @@ export function TeamModePage() {
       ) : null}
 
       {step === 'results' && firstPickCaptain && batBowlWinner && batBowlChoice ? (
-        <div className="cricket-scene mx-auto max-w-2xl p-5 sm:p-8">
+        <div className="toss-chamber mx-auto max-w-2xl p-5 sm:p-8">
           <div className="mb-6 text-center sm:mb-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-pitch-800 dark:text-pitch-300">
+            <p className="font-orbitron text-[10px] font-bold uppercase tracking-[0.22em] text-sky-400">
               Toss Complete
             </p>
-            <h1 className="mt-2 font-display text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
-              Play!
-            </h1>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            <h1 className="mt-2 font-orbitron text-3xl font-bold text-white sm:text-4xl">Play!</h1>
+            <p className="mt-2 font-grotesk text-sm text-slate-400">
               Both decisions locked by secure coin tosses
             </p>
           </div>
@@ -286,18 +283,20 @@ function ResultRow({
 }) {
   const accentClass =
     accent === 'bowl'
-      ? 'border-ball-700/20 bg-red-50/60 dark:bg-red-950/20'
+      ? 'border-red-500/25 bg-red-950/30'
       : accent === 'bat'
-        ? 'border-amber-700/20 bg-amber-50/60 dark:bg-amber-950/20'
-        : 'border-pitch-600/20 bg-pitch-50/70 dark:bg-pitch-950/30'
+        ? 'border-amber-500/25 bg-amber-950/30'
+        : 'border-sky-500/25 bg-sky-950/30'
 
   return (
     <div className={`flex items-start gap-4 rounded-2xl border p-5 ${accentClass}`}>
       {icon ? <div className="mt-0.5 shrink-0">{icon}</div> : null}
       <div>
-        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">{label}</p>
-        <p className="mt-2 font-display text-xl font-bold text-slate-900 dark:text-white">{value}</p>
-        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{detail}</p>
+        <p className="font-orbitron text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
+          {label}
+        </p>
+        <p className="mt-2 font-orbitron text-xl font-bold text-white">{value}</p>
+        <p className="mt-1 font-grotesk text-sm text-slate-400">{detail}</p>
       </div>
     </div>
   )

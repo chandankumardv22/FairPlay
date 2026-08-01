@@ -5,6 +5,9 @@
 @theme {
   --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-orbitron: "Orbitron", ui-sans-serif, system-ui, sans-serif;
+  --font-grotesk: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-rajdhani: "Rajdhani", ui-sans-serif, system-ui, sans-serif;
 
   --color-brand-50: #f0fdfa;
   --color-brand-100: #ccfbf1;
@@ -49,8 +52,7 @@
 
   body {
     @apply m-0 min-h-dvh font-sans antialiased;
-    @apply bg-surface-50 text-slate-900;
-    @apply dark:bg-surface-950 dark:text-slate-100;
+    @apply bg-[#0B1020] text-slate-100;
     overflow-x: hidden;
     overscroll-behavior-y: none;
     -webkit-tap-highlight-color: transparent;
@@ -252,5 +254,284 @@
   .touch-scroll {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+  }
+
+  /* —— Marvel-inspired Fortune Wheel —— */
+  .font-orbitron {
+    font-family: var(--font-orbitron);
+  }
+
+  .font-grotesk {
+    font-family: var(--font-grotesk);
+  }
+
+  .font-rajdhani {
+    font-family: var(--font-rajdhani);
+  }
+
+  .wheel-chamber {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 40%, rgb(37 99 235 / 0.14), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgb(220 38 38 / 0.12), transparent 50%),
+      radial-gradient(ellipse 40% 35% at 15% 75%, rgb(148 163 184 / 0.08), transparent 45%),
+      linear-gradient(165deg, #050814 0%, #0B1020 48%, #1F2937 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.06),
+      0 25px 50px -12px rgb(0 0 0 / 0.55);
+  }
+
+  .wheel-chamber::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background-image:
+      linear-gradient(rgb(56 189 248 / 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(56 189 248 / 0.15) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(circle at center, black 20%, transparent 75%);
+  }
+
+  .wheel-hud-ring {
+    position: absolute;
+    inset: 8%;
+    border-radius: 9999px;
+    border: 1px solid rgb(56 189 248 / 0.15);
+    box-shadow: 0 0 24px rgb(56 189 248 / 0.08);
+    pointer-events: none;
+  }
+
+  .wheel-pointer {
+    filter: drop-shadow(0 0 8px rgb(250 204 21 / 0.75)) drop-shadow(0 4px 8px rgb(0 0 0 / 0.5));
+  }
+
+  .wheel-spin-btn {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: min(100%, 320px);
+    min-height: 3.25rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(220 38 38 / 0.55);
+    background:
+      linear-gradient(180deg, rgb(30 41 59 / 0.95), rgb(15 23 42 / 0.98));
+    color: #fecaca;
+    font-family: var(--font-orbitron);
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    box-shadow:
+      0 0 0 1px rgb(15 23 42 / 0.8),
+      0 0 28px rgb(220 38 38 / 0.3),
+      inset 0 1px 0 rgb(255 255 255 / 0.12);
+    transition: box-shadow 0.25s ease, transform 0.15s ease, border-color 0.25s ease;
+  }
+
+  .wheel-spin-btn:hover:not(:disabled) {
+    border-color: rgb(56 189 248 / 0.65);
+    color: #e0f2fe;
+    box-shadow:
+      0 0 0 1px rgb(15 23 42 / 0.8),
+      0 0 36px rgb(37 99 235 / 0.4),
+      0 0 18px rgb(220 38 38 / 0.35),
+      inset 0 1px 0 rgb(255 255 255 / 0.16);
+  }
+
+  .wheel-spin-btn:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .wheel-spin-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .wheel-spin-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.12) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 0.55s ease;
+  }
+
+  .wheel-spin-btn:hover:not(:disabled)::after {
+    transform: translateX(120%);
+  }
+
+  @keyframes wheel-idle-glow {
+    0%, 100% { opacity: 0.45; filter: blur(8px); }
+    50% { opacity: 0.85; filter: blur(14px); }
+  }
+
+  @keyframes wheel-hub-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes wheel-pulse-ring {
+    0% { transform: scale(0.55); opacity: 0.7; }
+    100% { transform: scale(1.55); opacity: 0; }
+  }
+
+  @keyframes wheel-particle-float {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-90px) scale(0.4); opacity: 0; }
+  }
+
+  @keyframes wheel-confetti {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translate(var(--cx, 20px), -110px) rotate(240deg) scale(0.4); opacity: 0; }
+  }
+
+  @keyframes wheel-spark {
+    0% { opacity: 0; filter: blur(0); }
+    40% { opacity: 1; }
+    100% { opacity: 0; filter: blur(2px); }
+  }
+
+  .wheel-idle-aura {
+    animation: wheel-idle-glow 3.2s ease-in-out infinite;
+  }
+
+  .wheel-hub-ring {
+    animation: wheel-hub-spin 12s linear infinite;
+  }
+
+  .wheel-hub-ring-rev {
+    animation: wheel-hub-spin 8s linear infinite reverse;
+  }
+
+  .wheel-landing-pulse {
+    animation: wheel-pulse-ring 0.85s ease-out forwards;
+  }
+
+  .hq-stars {
+    background-image:
+      radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+      radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1.5px 1.5px at 90px 40px, #fff, transparent),
+      radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 160px 120px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 200px 60px, rgba(255,255,255,0.9), transparent),
+      radial-gradient(1px 1px at 250px 150px, #fff, transparent),
+      radial-gradient(1px 1px at 300px 90px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 340px 200px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 380px 40px, #fff, transparent);
+    background-size: 420px 240px;
+    animation: hq-stars-drift 80s linear infinite;
+  }
+
+  @keyframes hq-stars-drift {
+    to { background-position: 420px 240px; }
+  }
+
+  .hq-earth {
+    background:
+      radial-gradient(circle at 35% 35%, #7dd3fc 0%, #0284c7 22%, #0369a1 42%, #0c4a6e 68%, #082f49 100%);
+    box-shadow: 0 0 80px rgba(14, 165, 233, 0.25);
+  }
+
+  .hq-earth::after {
+    content: "";
+    position: absolute;
+    inset: 18% 12% 40% 28%;
+    border-radius: 40% 60%;
+    background: rgba(34, 197, 94, 0.35);
+    filter: blur(8px);
+  }
+
+  /* —— Cinematic Coin Toss —— */
+  .toss-chamber {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    background:
+      radial-gradient(ellipse 65% 50% at 50% 35%, rgb(59 130 246 / 0.14), transparent 55%),
+      radial-gradient(ellipse 45% 40% at 85% 80%, rgb(168 85 247 / 0.12), transparent 50%),
+      radial-gradient(ellipse 40% 35% at 10% 70%, rgb(220 38 38 / 0.08), transparent 45%),
+      linear-gradient(165deg, #09090b 0%, #111827 50%, #1f2937 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.06),
+      0 25px 50px -12px rgb(0 0 0 / 0.55);
+  }
+
+  .toss-chamber::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.16;
+    background-image:
+      linear-gradient(rgb(56 189 248 / 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(56 189 248 / 0.12) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(circle at 50% 40%, black 15%, transparent 72%);
+  }
+
+  .coin-flip-btn {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: min(100%, 340px);
+    min-height: 3.25rem;
+    border-radius: 1rem;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#0f172a, #0f172a) padding-box,
+      linear-gradient(105deg, #38bdf8, #a855f7, #f59e0b, #ef4444) border-box;
+    color: #e0f2fe;
+    font-family: var(--font-orbitron);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    box-shadow:
+      0 0 28px rgb(59 130 246 / 0.28),
+      inset 0 1px 0 rgb(255 255 255 / 0.1);
+    transition: box-shadow 0.25s ease, transform 0.15s ease;
+  }
+
+  .coin-flip-btn:hover:not(:disabled) {
+    box-shadow:
+      0 0 40px rgb(168 85 247 / 0.4),
+      0 8px 24px rgb(0 0 0 / 0.35),
+      inset 0 1px 0 rgb(255 255 255 / 0.14);
+    transform: translateY(-2px);
+  }
+
+  .coin-flip-btn:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .coin-flip-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .coin-flip-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.14) 50%, transparent 65%);
+    transform: translateX(-130%);
+    transition: transform 0.55s ease;
+  }
+
+  .coin-flip-btn:hover:not(:disabled)::after {
+    transform: translateX(130%);
+  }
+
+  @keyframes coin-shine-sweep {
+    0% { transform: translateX(-120%) rotate(12deg); opacity: 0; }
+    30% { opacity: 0.55; }
+    100% { transform: translateX(140%) rotate(12deg); opacity: 0; }
+  }
+
+  .coin-shine {
+    animation: coin-shine-sweep 0.9s ease-out forwards;
   }
 }

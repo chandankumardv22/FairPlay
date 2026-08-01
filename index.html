@@ -7,8 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#0d9488" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0B1020" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -20,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&family=Rajdhani:wght@500;600;700&family=Sora:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <title>SpinXI — No Arguments. Just Fair Decisions.</title>
@@ -28,9 +27,7 @@
       (() => {
         try {
           const stored = localStorage.getItem('spinxi-theme')
-          const dark =
-            stored === 'dark' ||
-            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          const dark = stored !== 'light'
           if (dark) document.documentElement.classList.add('dark')
         } catch {}
       })()

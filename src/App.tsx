@@ -3,6 +3,7 @@ import { Layout } from './components/layout/Layout'
 import { HomePage } from './pages/HomePage'
 import { IndividualModePage } from './pages/IndividualModePage'
 import { TeamModePage } from './pages/TeamModePage'
+import { AboutPage } from './pages/AboutPage'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="individual" element={<IndividualModePage />} />
           <Route path="team" element={<TeamModePage />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

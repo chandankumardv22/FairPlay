@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '../ui/Button'
-import { GlassCard } from '../ui/GlassCard'
 import { Input } from '../ui/Input'
 import type { Player } from '../../types'
 
@@ -81,12 +80,12 @@ export function PlayerSetup({
   }
 
   return (
-    <GlassCard strong className="mx-auto w-full max-w-2xl p-5 sm:p-8">
+    <div className="mx-auto w-full max-w-2xl rounded-3xl border border-white/10 bg-slate-950/55 p-5 backdrop-blur-xl sm:p-8">
       <div className="mb-5 space-y-2 sm:mb-6">
-        <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+        <h1 className="font-orbitron text-2xl font-bold tracking-tight text-white sm:text-3xl">
           {title}
         </h1>
-        <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">{subtitle}</p>
+        <p className="font-grotesk text-sm text-slate-400 sm:text-base">{subtitle}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
@@ -105,7 +104,7 @@ export function PlayerSetup({
 
         <div className="space-y-3">
           <div className="flex items-center justify-between gap-2">
-            <p className="text-sm font-medium text-slate-700 dark:text-slate-200">Player names</p>
+            <p className="text-sm font-medium text-slate-200">Player names</p>
             <p className="shrink-0 text-xs text-slate-500">{names.length} fields</p>
           </div>
           <div className="touch-scroll max-h-[min(45dvh,24rem)] space-y-2.5 overflow-y-auto overscroll-contain pr-1">
@@ -131,7 +130,7 @@ export function PlayerSetup({
         </div>
 
         {error ? (
-          <p className="rounded-xl bg-rose-500/10 px-3 py-2 text-sm font-medium text-rose-600 dark:text-rose-300">
+          <p className="rounded-xl bg-rose-500/10 px-3 py-2 text-sm font-medium text-rose-300">
             {error}
           </p>
         ) : null}
@@ -140,6 +139,6 @@ export function PlayerSetup({
           {submitLabel}
         </Button>
       </form>
-    </GlassCard>
+    </div>
   )
 }
